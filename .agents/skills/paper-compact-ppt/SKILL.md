@@ -1,8 +1,7 @@
 ---
-
 name: paper-compact-ppt
-description: Create a high-quality, concise, information-dense academic presentation deck from a research paper PDF or paper URL. Use this skill when the user asks to read a paper and generate a PPT/slides for academic presentation, especially when the deck should cover background, motivation, method, experiments, ablations, analysis, conclusions, and limitations. The deck should use carefully cropped original paper figures/tables when they directly support the presentation story, but must not use full-page paper screenshots.
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+description: "Create a high-quality Chinese academic PPT from a research paper PDF or paper URL. The deck should be concise, information-dense, presentation-ready, and should use only tightly cropped original paper figures or tables when useful. Never use full-page PDF screenshots."
+---
 
 # Paper Compact PPT
 
@@ -12,18 +11,18 @@ Create a high-quality academic presentation PPT from a research paper.
 
 The output should be:
 
-* presentation-ready
-* concise but information-dense
-* organized around the paper’s core story
-* visually clean and readable
-* grounded in the paper’s actual figures, tables, experiments, and claims
+- presentation-ready
+- concise but information-dense
+- organized around the paper’s core story
+- visually clean and readable
+- grounded in the paper’s actual figures, tables, experiments, and claims
 
 Default output:
 
-* format: `.pptx`
-* slide language: Chinese, unless the user requests another language
-* slide count: no more than 7 slides, unless the user explicitly asks otherwise
-* style: compact academic presentation, not a poster and not a paper summary document
+- format: `.pptx`
+- slide language: Chinese, unless the user requests another language
+- slide count: no more than 7 slides, unless the user explicitly asks otherwise
+- style: compact academic presentation, not a poster and not a paper summary document
 
 The deck should explain the paper’s:
 
