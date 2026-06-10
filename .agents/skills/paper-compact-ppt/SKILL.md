@@ -1,5 +1,4 @@
 ---
-
 name: paper-compact-ppt
 description: "Create a high-quality, concise, information-dense academic presentation deck from a research paper PDF or paper URL. Use this skill when the user asks to read a paper and generate a PPT/slides for academic presentation. The deck should cover background, motivation, method, experiments, ablations, analysis, conclusions, and limitations. Use carefully cropped original paper figures/tables when they directly support the presentation story, and never use full-page paper screenshots."
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
