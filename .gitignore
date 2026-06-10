@@ -1,3 +1,7 @@
 
 # Generated presentation binaries
 outputs/*.pptx
+outputs/docseeker_generated_images/
+
+__pycache__/
+*.py[cod]
