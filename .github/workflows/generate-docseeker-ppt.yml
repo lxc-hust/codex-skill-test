@@ -1,0 +1,45 @@
+name: Generate DocSeeker compact PPT
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/generate_docseeker_compact_ppt.py
+      - .github/workflows/generate-docseeker-ppt.yml
+      - outputs/docseeker_assets/**
+      - outputs/docseeker_compact_summary.md
+
+jobs:
+  build-ppt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Generate PPTX
+        run: python scripts/generate_docseeker_compact_ppt.py
+
+      - name: Validate PPTX package
+        run: |
+          unzip -t outputs/attention_is_all_you_need_compact.pptx
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          pptx = Path('outputs/attention_is_all_you_need_compact.pptx')
+          if not pptx.exists():
+              raise SystemExit('PPTX not found')
+          with ZipFile(pptx) as package:
+              names = package.namelist()
+              slides = [name for name in names if name.startswith('ppt/slides/slide') and name.endswith('.xml') and '_rels' not in name]
+              media = [name for name in names if name.startswith('ppt/media/')]
+          print(f'slides={len(slides)} media={len(media)} size={pptx.stat().st_size}')
+          assert len(slides) == 7
+          assert len(media) == 6
+          PY
+
+      - name: Upload PPTX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: attention_is_all_you_need_compact_pptx
+          path: outputs/attention_is_all_you_need_compact.pptx
+          if-no-files-found: error

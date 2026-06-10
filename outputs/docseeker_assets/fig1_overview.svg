@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="40" y="64" font-size="34" font-family="Arial, Noto Sans CJK SC, sans-serif" font-weight="700" fill="#203040">Figure 1 原文截图摘录：主结果与 ALR 范式</text>
+<rect x="40" y="92" width="1120" height="2" fill="#406da8"/>
+<rect x="70" y="101" width="1060" height="92" rx="18" fill="#eaf2ff" stroke="#aab7c4"/>
+<circle cx="110" cy="145" r="18" fill="#406da8"/><text x="104" y="153" font-size="22" font-family="Arial" fill="white" font-weight="700">1</text>
+<text x="150" y="137" font-size="25" font-family="Arial, Noto Sans CJK SC, sans-serif" fill="#1e2b38">文档长度 0:20→&gt;80：Baseline 35→11.7，DocSeeker 48→31.8</text>
+<rect x="70" y="209" width="1060" height="92" rx="18" fill="#eef9ef" stroke="#aab7c4"/>
+<circle cx="110" cy="253" r="18" fill="#406da8"/><text x="104" y="261" font-size="22" font-family="Arial" fill="white" font-weight="700">2</text>
+<text x="150" y="245" font-size="25" font-family="Arial, Noto Sans CJK SC, sans-serif" fill="#1e2b38">五基准提升：DUDE +64%，MPDocVQA +37%，MMLong +58%，LongDocURL +37%，SlideVQA +30%</text>
+<rect x="70" y="317" width="1060" height="92" rx="18" fill="#fff4e5" stroke="#aab7c4"/>
+<circle cx="110" cy="361" r="18" fill="#406da8"/><text x="104" y="369" font-size="22" font-family="Arial" fill="white" font-weight="700">3</text>
+<text x="150" y="353" font-size="25" font-family="Arial, Noto Sans CJK SC, sans-serif" fill="#1e2b38">右侧示例展示 Question Analysis / Evidence Localization / Reasoning Process / evidence_pages</text>
+<text x="40" y="690" font-size="20" font-family="Arial, sans-serif" fill="#6b7280">Source: arXiv:2604.12812 PDF screenshots / content summarized for compact slide rendering</text>
+</svg>
