@@ -1,0 +1,11 @@
+# Generated binary artifacts and local paper assets
+outputs/
+artifacts/
+paper/
+figures/
+crops/
+*.pptx
+*.pdf
+*.png
+*.jpg
+*.jpeg
