@@ -1,0 +1,5 @@
+outputs/*.pptx
+outputs/*.pdf
+outputs/*.png
+outputs/*.jpg
+outputs/_paper_assets/

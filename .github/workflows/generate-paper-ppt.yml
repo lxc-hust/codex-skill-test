@@ -1,0 +1,37 @@
+name: Generate paper compact PPT
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/generate_paper_compact_ppt.py"
+      - "requirements.txt"
+      - ".github/workflows/generate-paper-ppt.yml"
+
+jobs:
+  build-pptx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Generate PPTX
+        run: python scripts/generate_paper_compact_ppt.py --output outputs/paper_compact_ppt.pptx
+
+      - name: Validate ZIP integrity
+        run: unzip -t outputs/paper_compact_ppt.pptx
+
+      - name: Upload PPTX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper_compact_pptx
+          path: outputs/paper_compact_ppt.pptx
+          if-no-files-found: error
