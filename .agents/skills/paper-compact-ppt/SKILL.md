@@ -1,7 +1,8 @@
 ---
+
 name: paper-compact-ppt
-description: "Create a high-quality Chinese academic PPT from a research paper PDF or paper URL. The deck should be concise, information-dense, presentation-ready, and should use only tightly cropped original paper figures or tables when useful. Never use full-page PDF screenshots."
----
+description: "Create a high-quality, concise, information-dense academic presentation deck from a research paper PDF or paper URL. Use this skill when the user asks to read a paper and generate a PPT/slides for academic presentation. The deck should cover background, motivation, method, experiments, ablations, analysis, conclusions, and limitations. Use carefully cropped original paper figures/tables when they directly support the presentation story, and never use full-page paper screenshots."
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Paper Compact PPT
 
@@ -11,18 +12,18 @@ Create a high-quality academic presentation PPT from a research paper.
 
 The output should be:
 
-- presentation-ready
-- concise but information-dense
-- organized around the paper’s core story
-- visually clean and readable
-- grounded in the paper’s actual figures, tables, experiments, and claims
+* presentation-ready
+* concise but information-dense
+* organized around the paper’s core story
+* visually clean and readable
+* grounded in the paper’s actual figures, tables, experiments, and claims
 
 Default output:
 
-- format: `.pptx`
-- slide language: Chinese, unless the user requests another language
-- slide count: no more than 7 slides, unless the user explicitly asks otherwise
-- style: compact academic presentation, not a poster and not a paper summary document
+* format: `.pptx`
+* slide language: Chinese, unless the user requests another language
+* slide count: no more than 7 slides, unless the user explicitly asks otherwise
+* style: compact academic presentation, not a poster and not a paper summary document
 
 The deck should explain the paper’s:
 
@@ -43,16 +44,18 @@ The final PPT should look like a polished academic talk deck, not a collection o
 
 These principles override all lower-level instructions.
 
-1. **Quality of the academic story is more important than mechanically covering every paper section.**
-2. **Do not translate the paper section by section.**
-3. **Do not create a screenshot dump.**
-4. **Do not insert full-page PDF screenshots into the PPT.**
-5. **Only use tightly cropped local screenshots of important figures or tables.**
-6. **Each slide must have a clear message and a clear reason to exist.**
-7. **Every figure/table screenshot must directly support the slide’s main takeaway.**
-8. **If a figure/table cannot be cropped cleanly and readably, summarize it in text instead.**
-9. **Keep the deck within 7 slides by default.**
-10. **The final `.pptx` must be valid, openable, and not corrupted.**
+1. Quality of the academic story is more important than mechanically covering every paper section.
+2. Do not translate the paper section by section.
+3. Do not create a screenshot dump.
+4. Do not insert full-page PDF screenshots into the PPT.
+5. Only use tightly cropped local screenshots of important figures or tables.
+6. Each slide must have a clear message and a clear reason to exist.
+7. Every figure/table screenshot must directly support the slide’s main takeaway.
+8. If a figure/table cannot be cropped cleanly and readably, summarize it in text instead.
+9. Keep the deck within 7 slides by default.
+10. The final `.pptx` must be valid, openable, and not corrupted.
+11. Slide layout quality matters as much as content quality.
+12. Do not place text boxes, figures, and tables arbitrarily. Use stable academic layout templates.
 
 ---
 
@@ -66,12 +69,14 @@ If the user gives additional requirements, follow them over the default structur
 
 Typical user requirements may include:
 
-* “make it concise”
-* “keep it within 7 slides”
-* “include background, motivation, method, experiments, and conclusion”
-* “include ablation or analysis if available”
-* “use original paper figures/tables”
-* “do not use full-page screenshots”
+* make it concise
+* keep it within 7 slides
+* include background, motivation, method, experiments, and conclusion
+* include ablation or analysis if available
+* use original paper figures/tables
+* do not use full-page screenshots
+* improve slide layout quality
+* make the deck suitable for an academic presentation
 
 Treat these as strong constraints.
 
@@ -95,6 +100,8 @@ The PPT should prioritize:
 * compact wording
 * readable visual layout
 * precise takeaways
+* consistent slide structure
+* readable cropped paper figures and tables
 
 Avoid:
 
@@ -104,6 +111,8 @@ Avoid:
 * listing too many details without hierarchy
 * using screenshots as decoration
 * putting raw full-page paper images into slides
+* random or unaligned placement of text boxes and images
+* unreadable tables squeezed into small areas
 
 ---
 
@@ -156,7 +165,26 @@ Prioritize:
 
 Do not use a figure/table if it is not essential to the presentation story.
 
-### Step 4. Crop figures and tables carefully
+### Step 4. Create an internal slide plan
+
+Before creating the PPT file, create an internal slide plan.
+
+For each slide, decide:
+
+* slide title
+* slide purpose
+* selected layout template
+* main visual, if any
+* text region position
+* figure/table region position
+* 2-4 key takeaways
+* whether the slide risks overcrowding
+
+Do not start generating the `.pptx` until this layout plan is clear.
+
+The layout plan should guide all element placement in `python-pptx`.
+
+### Step 5. Crop figures and tables carefully
 
 When using original paper visuals:
 
@@ -176,13 +204,13 @@ Recommended filenames:
 * `fig_qualitative.png`
 * `table_efficiency.png`
 
-### Step 5. Generate the PPT
+### Step 6. Generate the PPT
 
 Create a compact academic PPT with no more than 7 slides by default.
 
 Use a reliable PPT generation method such as `python-pptx`.
 
-### Step 6. Validate the PPT
+### Step 7. Validate the PPT
 
 Before delivery, verify that the file is valid and the content meets the quality requirements.
 
@@ -252,8 +280,6 @@ Include:
 
 Do not insert a full-page screenshot.
 
----
-
 ### Slide 2. Background and Motivation
 
 Purpose:
@@ -272,8 +298,6 @@ Include:
 Usually this slide should be mostly text-based.
 
 Do not use introduction page screenshots.
-
----
 
 ### Slide 3. Method Overview
 
@@ -294,8 +318,6 @@ Preferred layout:
 
 If the paper has no clear method figure, create a clean text-based method summary instead of using a full-page screenshot.
 
----
-
 ### Slide 4. Main Experimental Results
 
 Purpose:
@@ -310,8 +332,6 @@ Include:
 
 Focus on what the results prove, not on copying every number.
 
----
-
 ### Slide 5. Ablation Study
 
 Purpose:
@@ -325,8 +345,6 @@ If ablations exist, include:
 * the mechanism-level conclusion
 
 If ablations are weak or absent, merge this slide with analysis or qualitative evidence.
-
----
 
 ### Slide 6. Analysis, Qualitative Results, or Efficiency
 
@@ -344,8 +362,6 @@ Use this slide for one of:
 * failure cases
 
 Include only visuals that are tightly cropped and readable.
-
----
 
 ### Slide 7. Conclusion, Limitations, and Takeaways
 
@@ -375,7 +391,7 @@ Good slide writing:
 * emphasize conclusions, not paper section summaries
 * use numbers only when they support a point
 * explain what each experiment demonstrates
-* use “therefore / indicates / suggests / shows” style reasoning
+* use reasoning-oriented language such as “shows”, “indicates”, “suggests”, and “therefore”
 
 Bad slide writing:
 
@@ -392,49 +408,236 @@ Recommended density:
 * 2-4 takeaway bullets for each inserted figure/table
 * no large paragraphs
 * no slide filled only with screenshots
+* no more than 2 screenshots on one slide unless absolutely necessary
 
 ---
 
-## Layout Guidelines
+## Layout Principles
 
-Use clean academic layouts.
+The PPT must use a stable academic layout system instead of placing elements arbitrarily.
 
-Preferred layouts:
+General layout rules:
 
-1. **Figure left, takeaways right**
-2. **Table top, conclusions bottom**
-3. **Two small cropped figures with comparison bullets**
-4. **Text-only slide for motivation or conclusion**
-5. **Method pipeline visual plus numbered explanation**
+* Use a 16:9 widescreen slide size.
+* Use consistent margins across all slides.
+* Keep a clear title area at the top of every slide.
+* Divide the remaining content area into structured regions.
+* Align all visual and text elements to a consistent grid.
+* Avoid overlapping text boxes, images, tables, and captions.
+* Avoid placing elements too close to slide edges.
+* Avoid filling the entire slide with dense text or oversized screenshots.
+* Prefer balanced layouts with clear reading order from left to right and top to bottom.
 
-Avoid:
+Every slide should have:
 
-* full-slide PDF page images
-* crowded screenshots
-* more than two screenshots on one slide
-* excessive decorative elements
-* tiny unreadable tables
-* low-contrast text
-* slides without a clear title
+1. a clear title region;
+2. one main content region;
+3. one supporting explanation region;
+4. sufficient whitespace between regions.
 
-Every slide title should be meaningful, not generic.
+Do not let figures, tables, or text boxes float freely without alignment.
 
-Prefer titles such as:
+---
 
-* “Motivation: Existing Methods Struggle with …”
-* “Core Idea: …”
-* “Main Results: …”
-* “Ablation: … Is the Key Component”
-* “Takeaway: …”
+## Slide Layout Templates
 
-Avoid titles such as:
+Use one of the following layout templates for each slide.
 
-* “Background”
-* “Method”
-* “Experiment”
-* “Conclusion”
+### Template A: Text-Only Concept Slide
 
-unless they are expanded with a specific message.
+Use for motivation, problem setting, conclusions, and limitations.
+
+Layout:
+
+* Title: top 10-15% of the slide.
+* Main message block: upper-middle area.
+* Supporting bullets: below the main message.
+* Optional small summary box: bottom-right.
+
+Rules:
+
+* Use 3-5 concise bullets.
+* Do not use more than two text columns.
+* Keep line length moderate.
+* Use bold emphasis only for key terms.
+
+Suitable for:
+
+* background
+* motivation
+* problem definition
+* conclusion
+* limitations
+
+### Template B: Figure Left, Takeaways Right
+
+Use for method overview, framework figures, qualitative examples, and analysis figures.
+
+Layout:
+
+* Title: top region.
+* Left region: cropped figure, occupying about 55-65% of slide width.
+* Right region: 2-4 takeaway bullets, occupying about 30-40% of slide width.
+* Optional caption: below the figure.
+
+Rules:
+
+* The figure must be large enough to read.
+* The right-side bullets must explain what the audience should notice in the figure.
+* Do not place long paragraphs next to the figure.
+* Do not put more than one large figure in this layout.
+
+Suitable for:
+
+* method overview
+* architecture diagram
+* qualitative comparison
+* analysis figure
+
+### Template C: Table Top, Takeaways Bottom
+
+Use for main results, ablation results, and efficiency comparisons.
+
+Layout:
+
+* Title: top region.
+* Table screenshot: center-top region, occupying about 70-80% of slide width.
+* Takeaway bullets: bottom region, below the table.
+* Optional highlighted observation box: bottom-right.
+
+Rules:
+
+* The table must be tightly cropped and readable.
+* Do not stretch the table non-proportionally.
+* Do not include a full-page screenshot.
+* Use 2-4 bullets below the table to explain the main result.
+* If the table is too wide or too dense, crop only the most relevant rows/columns if possible.
+* If the table remains unreadable after cropping, replace it with a textual summary.
+
+Suitable for:
+
+* main benchmark table
+* ablation table
+* comparison table
+* cost or efficiency table
+
+### Template D: Two-Panel Evidence Slide
+
+Use when two cropped visuals need to be compared.
+
+Layout:
+
+* Title: top region.
+* Left visual: one cropped figure/table.
+* Right visual: another cropped figure/table.
+* Bottom region: 2-3 comparison bullets.
+
+Rules:
+
+* Use this template only when both visuals are necessary.
+* Both visuals should have similar visual weight.
+* Do not use more than two visuals.
+* The bottom bullets must explain the comparison.
+
+Suitable for:
+
+* before/after comparison
+* two analysis figures
+* qualitative vs quantitative evidence
+* baseline vs proposed method
+
+### Template E: Method Pipeline Slide
+
+Use when the paper has no clean method figure or when the method needs simplification.
+
+Layout:
+
+* Title: top region.
+* Middle region: 3-5 step pipeline drawn with simple boxes and arrows.
+* Bottom region: concise explanation of each step.
+
+Rules:
+
+* Use this only when the original method figure is unavailable, unreadable, or too complex.
+* Keep the pipeline abstract and easy to present.
+* Do not overdraw complicated architectures manually.
+
+Suitable for:
+
+* method summary
+* algorithm flow
+* training pipeline
+* inference pipeline
+
+---
+
+## Table Layout Rules
+
+Tables are often the most difficult part of the deck. Follow these rules strictly.
+
+1. Prefer cropped original paper tables only when they remain readable.
+2. A table screenshot should usually occupy the central visual area, not the entire slide.
+3. Keep the table aspect ratio unchanged.
+4. Do not squeeze a wide table into a narrow column.
+5. Do not place long text beside a very wide table.
+6. For wide tables, use the “Table Top, Takeaways Bottom” layout.
+7. For narrow tables, use the “Figure/Table Left, Takeaways Right” layout.
+8. If a table has many columns, crop to the most relevant columns when possible.
+9. If a table has many rows, crop to the most relevant baselines and the proposed method when possible.
+10. If the original table is unreadable after cropping, summarize the key numbers in text instead of inserting the screenshot.
+
+Every table slide must answer:
+
+* What is being compared?
+* Which method performs best?
+* What is the main conclusion?
+* Why does this result matter?
+
+---
+
+## Text Box Rules
+
+Text boxes must be compact and aligned.
+
+Rules:
+
+* Use short bullets instead of paragraphs.
+* Use consistent font sizes across slides.
+* Use larger font for slide titles.
+* Use medium font for key bullets.
+* Use smaller font only for captions or secondary notes.
+* Avoid more than 5 bullets on one slide.
+* Avoid more than 2 lines per bullet when possible.
+* Keep text boxes aligned to the same left edge within a slide.
+* Leave clear spacing between bullets.
+* Do not place text over images or tables.
+
+Recommended hierarchy:
+
+* Slide title: large and bold.
+* Section label or key message: medium-large and bold.
+* Main bullets: medium.
+* Captions or notes: small but readable.
+
+---
+
+## Figure and Screenshot Layout Rules
+
+For every inserted figure or table screenshot:
+
+* Preserve aspect ratio.
+* Add a thin border or subtle frame if it improves readability.
+* Keep enough whitespace around the image.
+* Do not crop off important labels, legends, or axis titles.
+* Do not insert images that become unreadable after resizing.
+* Do not use full-slide images unless the user explicitly requests a visual-only slide.
+* Do not place multiple unrelated screenshots on the same slide.
+
+If the figure is too complex:
+
+* crop the most relevant sub-region;
+* or use a simplified text explanation;
+* or split evidence across two slides only if the slide count limit still allows it.
 
 ---
 
@@ -483,6 +686,35 @@ Do not include this internal plan in the final PPT unless the user asks for it.
 
 ---
 
+## Layout Quality Check
+
+Before final delivery, inspect the generated PPT for layout quality.
+
+Check every slide for:
+
+1. title is visible and aligned;
+2. text boxes do not overlap;
+3. images and tables do not overlap text;
+4. figures/tables are readable;
+5. no full-page PDF screenshots are used;
+6. table screenshots are not excessively squeezed;
+7. each visual has nearby explanatory bullets;
+8. slide has sufficient margins and whitespace;
+9. content follows a clear reading order;
+10. the deck looks consistent across slides.
+
+If a slide looks crowded, fix it by:
+
+* reducing bullet count;
+* enlarging the main visual;
+* removing secondary details;
+* switching to a better layout template;
+* replacing an unreadable screenshot with text summary.
+
+Never deliver a deck with visibly broken layout.
+
+---
+
 ## Validation Requirements
 
 Before final delivery, validate the `.pptx`.
@@ -498,6 +730,7 @@ Required checks:
 7. Each inserted screenshot is paired with explanatory takeaways.
 8. The deck is not just a paper screenshot collection.
 9. The PPT can be delivered as a valid file or artifact.
+10. No slide has visibly broken layout.
 
 Recommended technical checks:
 
@@ -537,4 +770,5 @@ In the final response, report:
 * list of original paper figures/tables used
 * confirmation that no full-page screenshots were used
 * validation result
+* layout quality check result
 * download instructions if artifact delivery is used
