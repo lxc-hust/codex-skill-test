@@ -1,0 +1,11 @@
+outputs/
+artifacts/
+paper/
+figures/
+crops/
+*.pptx
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.webp
