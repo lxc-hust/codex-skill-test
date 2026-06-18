@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="40" y="64" font-size="34" font-family="Arial, Noto Sans CJK SC, sans-serif" font-weight="700" fill="#203040">Table 2 + Figure 3 原文截图摘录：证据定位与长度鲁棒性</text>
+<rect x="40" y="92" width="1120" height="2" fill="#406da8"/>
+<rect x="70" y="101" width="1060" height="92" rx="18" fill="#eaf2ff" stroke="#aab7c4"/>
+<circle cx="110" cy="145" r="18" fill="#406da8"/><text x="104" y="153" font-size="22" font-family="Arial" fill="white" font-weight="700">1</text>
+<text x="150" y="137" font-size="25" font-family="Arial, Noto Sans CJK SC, sans-serif" fill="#1e2b38">Full-doc vs Evi-only：Baseline -15.7 Acc；DocSeeker -1.0 Acc</text>
+<rect x="70" y="209" width="1060" height="92" rx="18" fill="#eef9ef" stroke="#aab7c4"/>
+<circle cx="110" cy="253" r="18" fill="#406da8"/><text x="104" y="261" font-size="22" font-family="Arial" fill="white" font-weight="700">2</text>
+<text x="150" y="245" font-size="25" font-family="Arial, Noto Sans CJK SC, sans-serif" fill="#1e2b38">长度从 10 到 60 页：Baseline 34.5→13.9，DocSeeker 36.0→33.9</text>
+<rect x="70" y="317" width="1060" height="92" rx="18" fill="#fff4e5" stroke="#aab7c4"/>
+<circle cx="110" cy="361" r="18" fill="#406da8"/><text x="104" y="369" font-size="22" font-family="Arial" fill="white" font-weight="700">3</text>
+<text x="150" y="353" font-size="25" font-family="Arial, Noto Sans CJK SC, sans-serif" fill="#1e2b38">证明定位能力而非单纯记忆答案</text>
+<text x="40" y="690" font-size="20" font-family="Arial, sans-serif" fill="#6b7280">Source: arXiv:2604.12812 PDF screenshots / content summarized for compact slide rendering</text>
+</svg>

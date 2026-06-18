@@ -1,0 +1,70 @@
+name: Generate DocSeeker compact PPT
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - requirements.txt
+      - scripts/generate_docseeker_compact_ppt.py
+      - .github/workflows/generate-docseeker-ppt.yml
+      - outputs/docseeker_assets/**
+      - outputs/docseeker_compact_summary.md
+
+jobs:
+  build-ppt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Generate and strictly validate PPTX
+        run: python scripts/generate_docseeker_compact_ppt.py
+
+      - name: Validate PPTX package structure again
+        run: |
+          test -s outputs/attention_is_all_you_need_compact.pptx
+          unzip -t outputs/attention_is_all_you_need_compact.pptx
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from pptx import Presentation
+
+          pptx = Path('outputs/attention_is_all_you_need_compact.pptx')
+          size = pptx.stat().st_size
+          if size < 50000:
+              raise SystemExit(f'PPTX too small: {size}')
+          prs = Presentation(str(pptx))
+          slide_count = len(prs.slides)
+          if not 6 <= slide_count <= 7:
+              raise SystemExit(f'Unexpected slide count: {slide_count}')
+          picture_count = 0
+          for index, slide in enumerate(prs.slides, 1):
+              if not any(shape.name == 'Slide Title' and getattr(shape, 'has_text_frame', False) and shape.text_frame.text.strip() for shape in slide.shapes):
+                  raise SystemExit(f'Slide {index} has no title shape')
+              picture_count += sum(1 for shape in slide.shapes if shape.shape_type == 13)
+          if picture_count < 6:
+              raise SystemExit(f'Expected at least 6 pictures, found {picture_count}')
+          with ZipFile(pptx) as package:
+              names = set(package.namelist())
+              slide_xmls = [name for name in names if name.startswith('ppt/slides/slide') and name.endswith('.xml') and '_rels' not in name]
+              if 'ppt/presentation.xml' not in names:
+                  raise SystemExit('ppt/presentation.xml missing')
+              if len(slide_xmls) != slide_count:
+                  raise SystemExit(f'Slide XML count mismatch: {len(slide_xmls)} != {slide_count}')
+          print(f'size={size} slides={slide_count} pictures={picture_count} python_pptx_ok=True unzip_ok=True')
+          PY
+
+      - name: Upload PPTX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: attention_is_all_you_need_compact_pptx
+          path: outputs/attention_is_all_you_need_compact.pptx
+          if-no-files-found: error
